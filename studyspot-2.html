@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudySpot MSU</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #fff; max-width: 480px; margin: 0 auto; }
+  .screen { display: none; padding: 20px; min-height: 100vh; }
+  .screen.active { display: block; }
+  h1 { font-size: 20px; color: #18453B; }
+  h2 { font-size: 16px; margin: 10px 0 5px; }
+  button { padding: 10px 16px; margin: 5px 0; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+  .green { background: #18453B; color: #fff; width: 100%; }
+  .back { background: none; color: #18453B; padding: 5px 0; font-size: 14px; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 8px 0; cursor: pointer; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; color: #fff; }
+  .avail { background: #28a745; }
+  .moderate { background: #ffc107; color: #333; }
+  .full { background: #dc3545; }
+  input, select { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+  .nav { display: flex; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0; max-width: 480px; margin: 0 auto; background: #fff; }
+  .nav button { flex: 1; background: #fff; border: none; padding: 12px 0; font-size: 12px; color: #666; border-radius: 0; }
+  .nav button.on { color: #18453B; font-weight: bold; }
+  .info-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; border-bottom: 1px solid #eee; }
+  .option { border: 1px solid #ccc; border-radius: 6px; padding: 10px; margin: 4px 0; cursor: pointer; font-size: 14px; }
+  .option.sel { border-color: #18453B; background: #e8f5e9; }
+  .center { text-align: center; padding: 40px 20px; }
+  .has-nav { padding-bottom: 70px; }
+</style>
+</head>
+<body>
+
+  <!-- 1. Splash -->
+  <div class="screen active" id="s1">
+    <div class="center" style="padding-top:120px;">
+      <h1 style="font-size:32px;">📍 StudySpot</h1>
+      <p style="margin:10px 0 30px; color:#666;">Find study spaces at MSU</p>
+      <button class="green" onclick="go('s2')">Get Started</button>
+    </div>
+  </div>
+
+  <!-- 2. Login -->
+  <div class="screen" id="s2">
+    <div style="padding-top:60px;">
+      <h1 style="font-size:24px; text-align:center;">Sign In</h1>
+      <p style="font-size:13px; color:#666; text-align:center; margin:8px 0 24px;">Use your MSU NetID</p>
+      <input placeholder="NetID" value="spartanuser">
+      <input type="password" placeholder="Password" value="password">
+      <button class="green" style="margin-top:12px;" onclick="go('s3')">Sign In</button>
+      <p style="text-align:center; margin-top:16px; font-size:12px; color:#999;">MSU affiliated — reservations are officially recognized</p>
+    </div>
+  </div>
+
+  <!-- 3. Home -->
+  <div class="screen has-nav" id="s3">
+    <h1 style="margin-bottom:12px;">StudySpot</h1>
+    <input placeholder="🔍 Search buildings...">
+    <div class="card" onclick="go('s4')">
+      <b>3rd Floor Open Area</b><br>
+      <span style="color:#888; font-size:13px;">Main Library</span><br>
+      <span class="badge avail">Available</span> <span class="badge" style="background:#ddd; color:#333;">Quiet</span>
+    </div>
+    <div class="card" onclick="go('s4')">
+      <b>Study Room 204</b><br>
+      <span style="color:#888; font-size:13px;">STEM Building</span><br>
+      <span class="badge moderate">Moderate</span> <span class="badge" style="background:#ddd; color:#333;">Group</span>
+    </div>
+    <div class="card">
+      <b>Lobby Lounge</b><br>
+      <span style="color:#888; font-size:13px;">Business College</span><br>
+      <span class="badge full">Full</span> <span class="badge" style="background:#ddd; color:#333;">Group</span>
+    </div>
+    <div class="nav">
+      <button class="on">🏠 Home</button>
+      <button onclick="go('s7')">📋 My Spots</button>
+      <button onclick="go('s8')">📢 Report</button>
+      <button onclick="go('s9')">👤 Profile</button>
+    </div>
+  </div>
+
+  <!-- 4. Detail -->
+  <div class="screen" id="s4">
+    <button class="back" onclick="go('s3')">← Back</button>
+    <h1>3rd Floor Open Area</h1>
+    <p style="color:#888; margin-bottom:12px;">Main Library</p>
+    <div class="info-row"><span>Status</span><span class="badge avail">Available</span></div>
+    <div class="info-row"><span>Occupancy</span><span>~35%</span></div>
+    <div class="info-row"><span>Noise</span><span>🤫 Quiet</span></div>
+    <div class="info-row"><span>Type</span><span>Individual / Quiet Zone</span></div>
+    <div class="info-row"><span>Hours</span><span>7 AM – 12 AM</span></div>
+    <br>
+    <button class="green" onclick="go('s5')">Reserve a Spot</button>
+  </div>
+
+  <!-- 5. Reserve -->
+  <div class="screen" id="s5">
+    <button class="back" onclick="go('s4')">← Back</button>
+    <h1>Reserve</h1>
+    <p style="color:#888; margin-bottom:12px;">3rd Floor Open Area • Main Library</p>
+    <h2>Date</h2>
+    <select><option>Today - Mar 15</option><option>Tomorrow - Mar 16</option><option>Mar 17</option></select>
+    <h2>Time</h2>
+    <select><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option></select>
+    <h2>Duration</h2>
+    <select><option>1 hour</option><option selected>2 hours</option><option>3 hours</option></select>
+    <br><br>
+    <button class="green" onclick="go('s6')">Confirm Reservation</button>
+  </div>
+
+  <!-- 6. Confirmation -->
+  <div class="screen" id="s6">
+    <div class="center">
+      <div style="font-size:48px;">✅</div>
+      <h1>Spot Reserved!</h1>
+      <p style="color:#666;">Confirmed by MSU</p>
+    </div>
+    <div class="info-row"><span>Location</span><span>3rd Floor Open Area</span></div>
+    <div class="info-row"><span>Building</span><span>Main Library</span></div>
+    <div class="info-row"><span>Date</span><span>Today, Mar 15</span></div>
+    <div class="info-row"><span>Time</span><span>11:00 AM – 1:00 PM</span></div>
+    <p style="font-size:12px; color:#999; margin:12px 0;">Check in when you arrive. Unclaimed spots expire after 15 min.</p>
+    <button class="green" onclick="go('s7')">View My Spots</button>
+    <button class="green" style="background:#fff; color:#18453B; border:1px solid #18453B;" onclick="go('s3')">Home</button>
+  </div>
+
+  <!-- 7. My Reservations -->
+  <div class="screen has-nav" id="s7">
+    <h1 style="margin-bottom:12px;">My Spots</h1>
+    <div class="card" style="border-left:4px solid #18453B;">
+      <b style="color:#18453B;">● ACTIVE</b><br>
+      <b>3rd Floor Open Area</b> — Main Library<br>
+      <span style="font-size:13px;">Today, 11:00 AM – 1:00 PM</span><br>
+      <button class="green" style="margin-top:8px;" onclick="go('s10')">Check In</button>
+    </div>
+    <div class="card" style="border-left:4px solid #ffc107;">
+      <b style="color:#856404;">● UPCOMING</b><br>
+      <b>Study Room 204</b> — STEM Building<br>
+      <span style="font-size:13px;">Tomorrow, 2:00 PM – 4:00 PM</span>
+    </div>
+    <div class="nav">
+      <button onclick="go('s3')">🏠 Home</button>
+      <button class="on">📋 My Spots</button>
+      <button onclick="go('s8')">📢 Report</button>
+      <button onclick="go('s9')">👤 Profile</button>
+    </div>
+  </div>
+
+  <!-- 8. Report -->
+  <div class="screen has-nav" id="s8">
+    <h1>Report Conditions</h1>
+    <p style="font-size:13px; color:#666; margin-bottom:12px;">Help fellow Spartans know what's up.</p>
+    <h2>Where are you?</h2>
+    <select><option>Main Library - 3rd Floor</option><option>STEM Building - Room 204</option><option>Business College - Lobby</option></select>
+    <h2>Noise Level</h2>
+    <div class="option sel">🤫 Silent</div>
+    <div class="option">🔈 Quiet</div>
+    <div class="option">🔊 Moderate</div>
+    <div class="option">📢 Loud</div>
+    <h2>How full?</h2>
+    <div class="option">🟢 Mostly empty</div>
+    <div class="option sel">🟡 Half full</div>
+    <div class="option">🔴 Almost full</div>
+    <br>
+    <button class="green" onclick="alert('Thanks, Spartan! Report submitted.'); go('s3')">Submit</button>
+    <div class="nav">
+      <button onclick="go('s3')">🏠 Home</button>
+      <button onclick="go('s7')">📋 My Spots</button>
+      <button class="on">📢 Report</button>
+      <button onclick="go('s9')">👤 Profile</button>
+    </div>
+  </div>
+
+  <!-- 9. Profile -->
+  <div class="screen has-nav" id="s9">
+    <h1>Profile</h1>
+    <div style="text-align:center; margin:20px 0;">
+      <div style="width:60px;height:60px;border-radius:50%;background:#18453B;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:24px;">S</div>
+      <p><b>Spartan User</b></p>
+      <p style="font-size:13px; color:#888;">spartanuser&#64;msu.edu</p>
+    </div>
+    <div class="info-row"><span>⭐ Favorite Spaces</span><span>→</span></div>
+    <div class="info-row"><span>🔔 Notifications</span><span>→</span></div>
+    <div class="info-row"><span>⚙️ Settings</span><span>→</span></div>
+    <div class="info-row" style="cursor:pointer;" onclick="go('s1')"><span style="color:red;">🚪 Sign Out</span><span>→</span></div>
+    <div class="nav">
+      <button onclick="go('s3')">🏠 Home</button>
+      <button onclick="go('s7')">📋 My Spots</button>
+      <button onclick="go('s8')">📢 Report</button>
+      <button class="on">👤 Profile</button>
+    </div>
+  </div>
+
+  <!-- 10. Check In -->
+  <div class="screen" id="s10">
+    <button class="back" onclick="go('s7')">← Back</button>
+    <div class="center">
+      <div style="font-size:48px;">📍</div>
+      <h1>Checked In!</h1>
+      <p style="color:#666;">3rd Floor Open Area — Main Library</p>
+      <p style="font-size:13px; color:#888; margin-top:5px;">Today, 11:00 AM – 1:00 PM</p>
+    </div>
+    <div style="background:#e8f5e9; border-radius:8px; padding:14px; text-align:center; margin-bottom:16px;">
+      <p style="color:#18453B; font-size:14px;"><b>Your spot is secured</b></p>
+      <p style="font-size:12px; color:#666; margin-top:4px;">Check out when you leave so others can use the space.</p>
+    </div>
+    <button class="green" style="background:#dc3545;" onclick="go('s3')">Check Out Early</button>
+    <button class="green" style="background:#fff; color:#18453B; border:1px solid #18453B;" onclick="go('s3')">Back to Home</button>
+  </div>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
